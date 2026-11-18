@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09090b">
+<title>WARRZZ BOOST — TikTok Account Checker</title>
+<style>
+:root{--bg:#08080b;--panel:#121217;--red:#ff2448;--text:#f7f7fa;--muted:#9999a5;--line:#292931}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#4b0b1b55,transparent 38%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+.wrap{max-width:1000px;margin:auto;padding:20px 15px 55px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0 25px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(145deg,#ff536d,#b80028);display:grid;place-items:center;font-weight:1000}.brand strong{letter-spacing:1.7px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px}.badge{border:1px solid #ff244855;color:#ff8093;background:#ff244812;border-radius:30px;padding:8px 11px;font-size:11px}
+.hero{padding:18px 0 25px}.eyebrow{color:#ff536d;font-size:11px;font-weight:800;letter-spacing:2.5px}.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.06;margin:12px 0}.hero h1 span{color:var(--red)}.hero p,.sub{color:var(--muted);line-height:1.6;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.card{background:linear-gradient(150deg,#17171e,#101015);border:1px solid var(--line);border-radius:19px;padding:19px;box-shadow:0 12px 40px #0003}.card h2{font-size:16px;margin:0 0 8px}
+label{display:block;font-size:12px;color:#c7c7d0;margin:13px 0 7px}input,select{width:100%;background:#09090d;color:var(--text);border:1px solid #30303a;border-radius:12px;padding:13px;font:inherit;font-size:13px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:800;cursor:pointer;color:white;background:linear-gradient(100deg,#ff2448,#c90031)}.btn:disabled{opacity:.55;cursor:wait}.secondary{background:#22222a;border:1px solid #383842}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.note{font-size:11px;color:#aaa;line-height:1.6;margin-top:13px}.status{font-size:12px;margin-top:12px;line-height:1.5;color:#ff9aaa}.profile{display:flex;align-items:center;gap:13px;margin-top:15px}.avatar{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#292932;border:2px solid #ff536d}.profile b{font-size:15px}.profile small{display:block;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px}.stat{background:#0b0b10;border:1px solid var(--line);border-radius:13px;padding:13px}.stat small{display:block;color:var(--muted);font-size:10px}.stat b{display:block;font-size:20px;margin-top:7px;overflow-wrap:anywhere}
+.section{margin-top:16px}.meter{height:9px;background:#292932;border-radius:20px;overflow:hidden;margin:11px 0}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff2448,#ff8a9c)}
+.advice{padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;color:#d5d5dc;line-height:1.55}.advice b{color:white}.pill{display:inline-block;padding:6px 9px;border-radius:20px;background:#ff244818;color:#ff8296;font-size:10px;margin:4px;border:1px solid #ff24482c}
+.footer{text-align:center;color:#73737e;font-size:11px;margin-top:28px;line-height:1.7}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding:15px 13px 40px}.card{padding:16px}.stats{gap:6px}.stat{padding:10px}.stat b{font-size:17px}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="logo">W</div><div><strong>WARRZZ BOOST</strong><small>CREATOR ANALYTICS</small></div></div><div class="badge">● ACCOUNT CHECKER</div></header>
+<section class="hero"><div class="eyebrow">PUBLIC PROFILE LOOKUP</div><h1>Cek akun TikTok.<br><span>Kenali performanya.</span></h1><p>Masukkan username untuk mencoba mengambil statistik profil publik. Tidak perlu login atau memasukkan password TikTok.</p></section>
+<div class="grid">
+<section class="card">
+<h2>🔎 Pemeriksa akun</h2><p class="sub">Gunakan username publik, misalnya @warrzz_kps.</p>
+<label for="username">Username TikTok</label><input id="username" autocomplete="off" placeholder="@username">
+<div class="actions"><button class="btn" id="checkBtn" onclick="checkAccount()">Cek akun otomatis ↗</button><button class="btn secondary" onclick="clearAll()">Reset</button></div>
+<div id="status" class="status" aria-live="polite"></div><div id="profile" class="profile" style="display:none"><img id="avatar" class="avatar" alt="Foto profil"><div><b id="displayName"></b><small id="handle"></small><small id="bio"></small></div></div>
+<p class="note">Privasi: jangan masukkan password, kode OTP, atau cookie akun. Alat ini hanya mencoba membaca informasi profil yang tersedia untuk publik.</p>
+</section>
+<section class="card">
+<h2>📊 Statistik profil</h2><p class="sub">Data profil yang berhasil ditemukan dari halaman publik TikTok.</p>
+<div class="stats"><div class="stat"><small>Followers</small><b id="followers">—</b></div><div class="stat"><small>Following</small><b id="following">—</b></div><div class="stat"><small>Total likes</small><b id="likes">—</b></div></div>
+<div class="stats"><div class="stat"><small>Jumlah video</small><b id="videos">—</b></div><div class="stat"><small>Nama akun</small><b id="unique">—</b></div><div class="stat"><small>Status</small><b id="privacy" style="font-size:14px">—</b></div></div>
+<div class="actions"><a id="openProfile" class="btn secondary" href="#" target="_blank" rel="noopener" style="text-decoration:none;display:none">Buka profil TikTok ↗</a></div>
+</section>
+</div>
+<section class="card section"><h2>🧠 Analisis sederhana</h2><p class="sub">Analisis ini memberi gambaran dari angka profil yang tersedia, bukan ramalan FYP.</p><div id="analysis" class="advice">Cek username terlebih dahulu untuk menampilkan ringkasan.</div></section>
+<section class="card section"><h2>📌 Catatan penting</h2>
+<div class="advice"><b>Data publik saja.</b><br>Statistik akun privat, insight kreator, demografi penonton, dan data internal tidak dapat diakses dari alat ini.</div>
+<div class="advice"><b>Ketersediaan tidak dijamin.</b><br>TikTok dapat membatasi permintaan otomatis. Jika data tidak bisa diambil, coba lagi nanti atau buka profil secara langsung.</div>
+<div class="advice"><b>Tidak ada jaminan FYP.</b><br>Jumlah followers atau likes bukan jaminan video akan masuk rekomendasi.</div></section>
+<footer class="footer">WARRZZ BOOST • Public TikTok Profile Checker<br>Independent community tool — not affiliated with TikTok.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n||0).toLocaleString('id-ID');
+async function checkAccount(){
+ let u=$('username').value.trim().replace(/^@/,'').replace(/[^a-zA-Z0-9._]/g,'');
+ if(!u){$('status').textContent='Masukkan username TikTok terlebih dahulu.';return}
+ $('username').value='@'+u;$('checkBtn').disabled=true;$('status').textContent='Sedang mencoba mengambil data profil publik…';
+ $('analysis').textContent='Sedang memeriksa data…';$('profile').style.display='none';$('openProfile').style.display='none';
+ ['followers','following','likes','videos','unique','privacy'].forEach(id=>$(id).textContent='—');
+ try{
+  const res=await fetch('/api/profile?username='+encodeURIComponent(u));
+  const data=await res.json();
+  if(!res.ok||!data.ok)throw new Error(data.message||'Data profil belum dapat diambil.');
+  const p=data.profile;
+  $('followers').textContent=fmt(p.followers);$('following').textContent=fmt(p.following);$('likes').textContent=fmt(p.likes);$('videos').textContent=fmt(p.videoCount);
+  $('unique').textContent='@'+p.username;$('privacy').textContent=p.privateAccount?'Privat':'Publik';
+  $('displayName').textContent=p.nickname||p.username;$('handle').textContent='@'+p.username;$('bio').textContent=p.bio||'';
+  if(p.avatar){$('avatar').src=p.avatar}
+  $('profile').style.display='flex';$('openProfile').href='https://www.tiktok.com/@'+encodeURIComponent(p.username);$('openProfile').style.display='inline-block';
+  $('status').textContent='Berhasil membaca data profil publik. Terakhir diperiksa: '+new Date().toLocaleString('id-ID');
+  $('analysis').innerHTML='<b>Ringkasan @'+p.username+'</b><br>Akun memiliki '+fmt(p.followers)+' followers, mengikuti '+fmt(p.following)+' akun, dan mengumpulkan '+fmt(p.likes)+' total likes. Terdapat '+fmt(p.videoCount)+' video yang terdeteksi. Gunakan angka ini sebagai gambaran profil, bukan ukuran pasti kualitas konten.';
+ }catch(e){$('status').textContent=e.message+' Coba lagi beberapa saat atau buka profil TikTok langsung.';$('analysis').textContent='Analisis otomatis belum tersedia karena data publik tidak berhasil dimuat. Cek kembali username atau coba nanti.'}
+ finally{$('checkBtn').disabled=false}
+}
+function clearAll(){ $('username').value='';$('status').textContent='';$('profile').style.display='none';$('openProfile').style.display='none';['followers','following','likes','videos','unique','privacy'].forEach(id=>$(id).textContent='—');$('analysis').textContent='Cek username terlebih dahulu untuk menampilkan ringkasan.'}
+$('username').addEventListener('keydown',e=>{if(e.key==='Enter')checkAccount()});
+</script></body></html>
